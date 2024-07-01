@@ -1,9 +1,23 @@
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from english_summary import get_english_summarizer, english_summarize
 from bangla_summary import get_bangla_summarizer
 from translate import get_translator
 
 app = FastAPI()
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    # add any other origins as needed
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 model_paths = {
     "english": "H:\CSE400\Pretrained Models\FinSummT5-v2\checkpoint-2500",
