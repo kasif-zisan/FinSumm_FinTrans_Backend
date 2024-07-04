@@ -9,7 +9,7 @@ def get_translator(checkpoint):
     
     def translate(input_sentence):
         input_ids = tokenizer(normalize(input_sentence), return_tensors="pt").input_ids.to(device)
-        generated_tokens = model.generate(input_ids)
+        generated_tokens = model.generate(input_ids, min_new_tokens = 30, max_new_tokens = 50)
         decoded_tokens = tokenizer.batch_decode(generated_tokens)[0]
         return decoded_tokens
     
